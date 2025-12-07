@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluv Development - Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #EFEBE0;      /* Light Tan/Cream */
+            --text-main: #231F20;     /* Soft Black */
+            --text-accent: #8D6E63;   /* Warm Brown */
+            --shape-1: #D7CCC8;       /* Light Cocoa */
+            --shape-2: #FFFFFF;       /* White */
+            --shape-3: #A1887F;       /* Medium Brown */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Ambient Background Animation */
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            filter: blur(80px); /* Creates the soft, dreamy effect */
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        .shape:nth-child(1) {
+            background-color: var(--shape-1);
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            background-color: var(--shape-2);
+            width: 400px;
+            height: 400px;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            background-color: var(--shape-3);
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            right: 20%;
+            animation-delay: -10s;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Main Content Card */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+            /* "Zoomed out" effect to ensure it fits entirely on screen */
+            transform: scale(0.9); 
+            transform-origin: center center;
+        }
+
+        .logo {
+            width: 220px; /* Increased size */
+            height: auto;
+            /* Removed border-radius (circle) and border to make it fully exposed */
+            border-radius: 0; 
+            border: none;
+            margin-bottom: 1rem;
+            /* Subtle shadow for depth, but clean */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px);
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .subtitle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 1.2rem;
+            color: var(--text-accent);
+            font-weight: 500;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        .discord-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+
+        .status-pill {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.6s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px);
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .status-pill {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.6s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .status-pill:hover {
+            transform: translateY(0) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            cursor: default;
+        }
+
+        /* Divider Line */
+        .divider {
+            width: 2px;
+            height: 0px;
+            background-color: var(--text-accent);
+            margin: 0 auto 2rem auto; /* Adjusted margins */
+            opacity: 0.5;
+            animation: growLine 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.8s;
+        }
+
+        .bio-text {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.0s;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.4s;
+        }
+
+        .tech-tag {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: var(--text-accent);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(141, 110, 99, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background-color: var(--text-accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes growLine {
+            to { height: 40px; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .brand-name {
+                font-size: 2.5rem;
+            }
+            .shape:nth-child(1) {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Background -->
+    <div class="background-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <img src="https://ik.imagekit.io/tycncf0zq0/Bluv%20%20(1).png?updatedAt=1765140175002" alt="Bluv Logo" class="logo">
+        
+        <h1 class="brand-name">Bluv Development</h1>
+        <div class="subtitle">
+            <span>Founded by Bluv</span>
+            <div class="discord-row">
+                <!-- Simple SVG Discord Icon -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/>
+                </svg>
+                <span>bluv</span>
+            </div>
+        </div>
+        
+        <div class="status-container">
+            <span class="status-pill">Website Coming Soon</span>
+        </div>
+
+        <div class="divider"></div>
+        
+        <p class="bio-text">
+            A dynamic community dedicated to creating <strong>top-quality Discord bots</strong> and versatile web solutions. 
+            Merging professional skill with passion to deliver exceptional digital experiences.
+        </p>
+
+        <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Java</span>
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">C++</span>
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">Ruby</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">JSON</span>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to add a blinking dot effect to "Coming Soon" if we wanted, 
+        // or just keep it clean. Let's keep the interactions CSS-based for smoothness.
+        // Adding a slight parallax effect to the mouse movement for a "sleek" feel.
+
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
+                
+                // We combine the CSS animation (float) with this subtle mouse movement
+                // Ideally we'd move a wrapper, but modifying the transform directly might conflict 
+                // with the keyframes unless we wrap them. 
+                // For simplicity and performance in a placeholder, we will leave the CSS animation 
+                // as the primary driver to avoid jankiness.
+            });
+        });
+    </script>
+</body>
+</html>
